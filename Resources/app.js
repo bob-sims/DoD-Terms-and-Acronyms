@@ -8,56 +8,43 @@ var tabGroup = Titanium.UI.createTabGroup();
 //
 // create base UI tab and root window
 //
-var win1 = Titanium.UI.createWindow({  
-    title:'Tab 1',
-    backgroundColor:'#fff'
-});
-var tab1 = Titanium.UI.createTab({  
-    icon:'KS_nav_views.png',
-    title:'Tab 1',
-    window:win1
+var homeWin = Titanium.UI.createWindow({  
+    title:'Term Search',
+    backgroundColor:'#fff',
+    //barColor:'#336699'
+    url: 'views/search.js'
 });
 
-var label1 = Titanium.UI.createLabel({
-	color:'#999',
-	text:'I am Window 1',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
-	textAlign:'center',
-	width:'auto'
+var homeTab = Titanium.UI.createTab({  
+    icon:'images/search32.png',
+    title:'Search',
+    backgroundColor:'#e4e1ce',
+    window:homeWin
 });
 
-win1.add(label1);
 
 //
 // create controls tab and root window
 //
-var win2 = Titanium.UI.createWindow({  
-    title:'Tab 2',
-    backgroundColor:'#fff'
-});
-var tab2 = Titanium.UI.createTab({  
-    icon:'KS_nav_ui.png',
-    title:'Tab 2',
-    window:win2
+var aboutWin = Titanium.UI.createWindow({  
+    title:'About',
+    backgroundColor:'#fff',
+    url: 'views/about.js'
 });
 
-var label2 = Titanium.UI.createLabel({
-	color:'#999',
-	text:'I am Window 2',
-	font:{fontSize:20,fontFamily:'Helvetica Neue'},
-	textAlign:'center',
-	width:'auto'
+var aboutTab = Titanium.UI.createTab({  
+    icon:'images/lightbulb32.png',
+    title:'About',
+    backgroundColor:'#e4e1ce',
+    window:aboutWin
 });
-
-win2.add(label2);
-
 
 
 //
 //  add tabs
 //
-tabGroup.addTab(tab1);  
-tabGroup.addTab(tab2);  
+tabGroup.addTab(homeTab);  
+tabGroup.addTab(aboutTab);  
 
 
 // open tab group
