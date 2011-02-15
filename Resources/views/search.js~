@@ -54,7 +54,7 @@ var hide = Titanium.UI.createButtonBar({
 
 
 // add table view to the window
-win.add(tableview);
+win.add(win);
 
 hide.addEventListener('click', function(e)
 {
