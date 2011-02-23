@@ -3,15 +3,21 @@ win.backgroundColor = '#dedede';
 
 win.layout = 'vertical';
 
+var aboutText = 'This is a simple app that connects to an open web service to return definitions for the 10,300+ US Department of Defense-approved acronyms and terms as listed in JP 1.02, '
+	aboutText += 'the "DOD Dictionary of Military and Associated Terms", current as of December 2010.\n\n';
+	aboutText += 'You may notice there are some common acronyms that are missing from this service (ie "FRG"), however, there is currently no automated way to update the authoritative JP 1.02 acronym dataset.  JP 1.02 includes a tedious, paper-based process to recommend changes.\n\n'
+	aboutText += 'Disclaimer:</strong> this app provided as-is, and is in no way endorsed or supported by the US Army, the US Department of Defense, or NATO.'
+
+
 
 var l1 = Titanium.UI.createLabel({
-	text:'Created By Bob Sims\nUS Army 53A',
+	text:aboutText,
 	top:30,
 	left:10,
 	right:10,
 	width:280,
 	color:'#000',
-	textAlign:'center',
+	textAlign:'left',
 	height:'auto',
     width:'auto',
 });
