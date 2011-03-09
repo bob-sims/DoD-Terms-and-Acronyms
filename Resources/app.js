@@ -10,14 +10,14 @@ var tabGroup = Titanium.UI.createTabGroup();
 //
 var homeWin = Titanium.UI.createWindow({  
     title:'Term Search',
-    //backgroundImage:'/images/background.png',
+    //backgroundImage:'/images/app_logo_jp1-02.png',
     backgroundColor:'#002d4f',
     url: 'views/search.js'
 });
 
 var homeTab = Titanium.UI.createTab({  
     icon:'images/search32.png',
-    title:'Search',
+    title:'Find DoD Terms',
 //    backgroundColor:'#000000',
 //    backgroundColor:'#002d4f',
     barColor:'#002d4f',
@@ -26,17 +26,30 @@ var homeTab = Titanium.UI.createTab({
     window:homeWin
 });
 
+var aboutWin = Titanium.UI.createWindow({  
+    title:'About',
+    //backgroundImage:'/images/background.png',
+    backgroundColor:'#002d4f',
+    url: 'views/about.js'
+});
 
-
-
-
+var aboutTab = Titanium.UI.createTab({  
+    icon:'images/lightbulb32.png',
+    title:'About This App',
+//    backgroundColor:'#000000',
+//    backgroundColor:'#002d4f',
+    barColor:'#002d4f',
+    font:{fontFamily:'Trebuchet MS',fontSize:10,fontWeight:'bold'},
+    shadowColor:'#eee',shadowOffset:{x:0,y:1},
+    window:aboutWin
+});
 
 
 //
 //  add tabs
 //
 tabGroup.addTab(homeTab);  
-//tabGroup.addTab(aboutTab);  
+tabGroup.addTab(aboutTab);  
 
 
 // open tab group

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
 <id>com.bobsims.jp1_02</id>
-<name>DoD Terms and Acronyms</name>
+<name>DoD Terms</name>
 <version>1.0</version>
 <publisher>Bob Sims</publisher>
 <url>http://bobsims.tumblr.com</url>

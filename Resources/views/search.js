@@ -4,7 +4,16 @@ var win = Titanium.UI.currentWindow;
 var db = Titanium.Database.install('data/jp102.sqlite','jp102');
 db.close();
 
+/*
+var backImage = Titanium.UI.createLabel({
+	backgroundImage:'/images/app_logo_jp1-02.png',
+	height:'auto',
+	width:'auto',
+});
 
+win.add(backImage);
+*/
+	
 var search = Titanium.UI.createSearchBar({
 //	borderColor:'#000000',
 	showCancel:true,
@@ -18,8 +27,27 @@ var search = Titanium.UI.createSearchBar({
 var tableview = Titanium.UI.createTableView({
 //	data:data,
 	search:search,
-	searchHidden:false
+	searchHidden:false,
+	//backgroundImage:'/images/app_logo_jp1-02.png',
 });
+
+var bannerText = 'JP 1.02\n\n';
+	bannerText += 'DOD Dictionary of Military and Associated Terms\n';
+
+var l2 = Titanium.UI.createLabel({
+	text:bannerText,
+	color:'#ffffff',
+	font:{fontSize:24, fontWeight:'bold', fontFamily:'Arial'},
+	bottom:30,
+	left:10,
+	right:10,
+	width:280,
+	textAlign:'center',
+	height:'auto',
+    width:'auto',
+});
+
+win.add(l2);
 
 function findWord(query, limit)
 {
@@ -29,13 +57,12 @@ var db = Titanium.Database.open('jp102');
 var rows = db.execute('SELECT WORD, DEFINITION FROM jp1_02 WHERE WORD LIKE ? LIMIT ?', query+'%', limit);
 
 var data = [];
-win.remove(b3);
+//win.remove(b3);
 if (rows) {
 while (rows.isValidRow())
     {
         //Create row                
            var row = Titanium.UI.createTableViewRow({ 
-//		    backgroundColor:'#000000',  
 		    backgroundImage:'/images/bgviolet.png',
                     className: 'searchResultsRow',
 		    definition:rows.fieldByName('DEFINITION'),
@@ -54,7 +81,6 @@ while (rows.isValidRow())
 
             //Create row labels
             var rowWord =  Titanium.UI.createLabel({ 
-//		color:'#FFCB05',
 		color:'#ffffff',
 		font:{fontSize:20,fontWeight:'bold', fontFamily:'Arial'},
 		textAlign:'center',
@@ -80,6 +106,12 @@ while (rows.isValidRow())
     rows.next();
     }
 
+var buttonRow = Titanium.UI.createTableViewRow({ 
+      backgroundImage:'/images/bgblue.png',
+      borderColor:'#3D3D3D',
+      borderWidth:1,
+      });
+
 rows.close();
 db.close(); // close db when you're done to save resources
   }
@@ -90,21 +122,29 @@ else {
 
 search.addEventListener('change', function(e)
 {
+
+if(e.value) {
+//tableview.backgroundImage = '';
+win.remove(l2);
 findWord(e.value, 20);
 return e.value; // search string as user types
-
+}
+else {
+search.blur();
+}
 });
 
 
 
 search.addEventListener('return', function(e)
 {
-//Titanium.UI.createAlertDialog({title:'Hello!',message:'return event!'}).show();
 search.blur();
 });
 
 search.addEventListener('cancel', function(e)
 {
+tableview.setData([]);
+win.add(l2);
 search.blur();
 });
 
@@ -114,11 +154,21 @@ search.blur();
 tableview.addEventListener('click', function(e)
 {
 	// event data
-	var index = e.index;
-	var section = e.section;
-	var row = e.row;
+	//var index = e.index;
+	//var section = e.section;
+	//var row = e.row;
 	var rowdata = e.rowData;
-	Titanium.UI.createAlertDialog({title:rowdata.word,message:rowdata.definition,buttonNames:['OK']}).show();
+	var alertWin = Titanium.UI.createAlertDialog({title:rowdata.word,message:rowdata.definition,buttonNames:['OK','Send'],cancel:0});
+	alertWin.addEventListener('click', function(ev) {
+	    if (ev.index == 1) { // clicked "Email"
+		var emailDialog = Titanium.UI.createEmailDialog();
+		emailDialog.subject = "Meaning of term: "+rowdata.word;
+		emailDialog.messageBody = rowdata.word+': '+rowdata.definition+'\n';
+		emailDialog.open();
+	    } 
+	  });
+
+	alertWin.show();
 	search.blur();
 });
 
@@ -155,7 +205,7 @@ hide.addEventListener('click', function(e)
 	}
 });
 
-
+/*
 //add menu buttons
 Ti.include('/includes/menu.js');
 menu.init({
@@ -170,17 +220,15 @@ menu.init({
 		backgroundColor:'#fff',
 		height: 'auto',
 		url: '/views/about.js'
-
 	});  
 
+	aboutWin.open({ modal:true});
 
-
-aboutWin.open({ modal:true});
 	 }
         }
     ]
 });
-
+*/
 
 //if (Ti.Platform.name == 'iPhone OS') {
 //	win.setRightNavButton(hide);
