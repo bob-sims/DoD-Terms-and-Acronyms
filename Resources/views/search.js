@@ -29,7 +29,7 @@ var db = Titanium.Database.open('jp102');
 var rows = db.execute('SELECT WORD, DEFINITION FROM jp1_02 WHERE WORD LIKE ? LIMIT ?', query+'%', limit);
 
 var data = [];
-
+win.remove(b3);
 if (rows) {
 while (rows.isValidRow())
     {
@@ -79,6 +79,7 @@ while (rows.isValidRow())
             tableview.setData(data); 
     rows.next();
     }
+
 rows.close();
 db.close(); // close db when you're done to save resources
   }
@@ -128,9 +129,9 @@ var hide = Titanium.UI.createButtonBar({
 	width:120
 });
 
-
 // add table view to the window
 win.add(tableview);
+//win.add(b3);
 
 /*
 // set the focus on the search bar as soon as the window opens
@@ -167,10 +168,14 @@ menu.init({
 		var aboutWin = Titanium.UI.createWindow({  
     		title:'About',
 		backgroundColor:'#fff',
+		height: 'auto',
 		url: '/views/about.js'
 
-});
-aboutWin.open();
+	});  
+
+
+
+aboutWin.open({ modal:true});
 	 }
         }
     ]

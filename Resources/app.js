@@ -26,42 +26,9 @@ var homeTab = Titanium.UI.createTab({
     window:homeWin
 });
 
-/*
-
-// create the label
-var titleLabel = Titanium.UI.createLabel({
-    color:'#000',
-    height:18,
-    width:210,
-    top:10,
-    text:'A Trebuchet TItle',
-    textAlign:'center',
-    font:{fontFamily:'Trebuchet MS',fontSize:10,fontWeight:'bold'},
-    shadowColor:'#eee',shadowOffset:{x:0,y:1}
-});
- 
-// associate label to title
-homeWin.setTitleControl(titleLabel);
 
 
-//
-// create controls tab and root window
-//
 
-var aboutWin = Titanium.UI.createWindow({  
-    title:'About',
-    backgroundColor:'#fff',
-    url: 'views/about.js'
-
-});
-
-var aboutTab = Titanium.UI.createTab({  
-    icon:'images/lightbulb32.png',
-    title:'About',
-    backgroundColor:'#002d4f',
-    window:aboutWin
-});
-*/
 
 
 
@@ -74,6 +41,5 @@ tabGroup.addTab(homeTab);
 
 // open tab group
 tabGroup.open();
-
 
 
