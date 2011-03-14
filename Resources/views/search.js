@@ -4,32 +4,27 @@ var win = Titanium.UI.currentWindow;
 var db = Titanium.Database.install('data/jp102.sqlite','jp102');
 db.close();
 
-/*
-var backImage = Titanium.UI.createLabel({
-	backgroundImage:'/images/app_logo_jp1-02.png',
-	height:'auto',
-	width:'auto',
-});
-
-win.add(backImage);
-*/
-	
 var search = Titanium.UI.createSearchBar({
-//	borderColor:'#000000',
 	showCancel:true,
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 	returnKeyType:Titanium.UI.RETURNKEY_SEARCH,
 	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED,
+	height:43,
+	top:0,
 	hintText:'search'
 });
 
+win.add(search);
+
+
 // create table view
 var tableview = Titanium.UI.createTableView({
+	top:45,
 //	data:data,
-	search:search,
-	searchHidden:false,
-	//backgroundImage:'/images/app_logo_jp1-02.png',
+//	search:search,
+//	searchHidden:false,
 });
+
 
 var bannerText = 'JP 1.02\n\n';
 	bannerText += 'DOD Dictionary of Military and Associated Terms\n';
@@ -51,13 +46,11 @@ win.add(l2);
 
 function findWord(query, limit)
 {
-//some code
 var db = Titanium.Database.open('jp102');
 
 var rows = db.execute('SELECT WORD, DEFINITION FROM jp1_02 WHERE WORD LIKE ? LIMIT ?', query+'%', limit);
 
 var data = [];
-//win.remove(b3);
 if (rows) {
 while (rows.isValidRow())
     {
@@ -67,7 +60,6 @@ while (rows.isValidRow())
                     className: 'searchResultsRow',
 		    definition:rows.fieldByName('DEFINITION'),
                     word:rows.fieldByName('WORD'),
-		      
                    });
 
            var defRow = Titanium.UI.createTableViewRow({ 
@@ -122,16 +114,9 @@ else {
 
 search.addEventListener('change', function(e)
 {
-
-if(e.value) {
-//tableview.backgroundImage = '';
 win.remove(l2);
 findWord(e.value, 20);
 return e.value; // search string as user types
-}
-else {
-search.blur();
-}
 });
 
 
@@ -143,20 +128,14 @@ search.blur();
 
 search.addEventListener('cancel', function(e)
 {
-tableview.setData([]);
-win.add(l2);
-search.blur();
+search.focus();
+//tableview.setData([]);
+//win.add(l2);
 });
-
-
 
 // create table view event listener
 tableview.addEventListener('click', function(e)
 {
-	// event data
-	//var index = e.index;
-	//var section = e.section;
-	//var row = e.row;
 	var rowdata = e.rowData;
 	var alertWin = Titanium.UI.createAlertDialog({title:rowdata.word,message:rowdata.definition,buttonNames:['OK','Send'],cancel:0});
 	alertWin.addEventListener('click', function(ev) {
@@ -181,7 +160,6 @@ var hide = Titanium.UI.createButtonBar({
 
 // add table view to the window
 win.add(tableview);
-//win.add(b3);
 
 /*
 // set the focus on the search bar as soon as the window opens
